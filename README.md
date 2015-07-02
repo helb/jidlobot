@@ -46,6 +46,16 @@ $ ./rtmbot.py
 
 Create a cron job if everything works.
 
+Example script for running from cron:
+
+```
+#!/bin/bash
+cd /path/to/virtualenv
+source bin/activate
+cd python-rtmbot
+./rtmbot.py
+```
+
 Note: rtmbot has no utf8 support, but it's easy to enable it: https://github.com/slackhq/python-rtmbot/pull/9/
 
 
