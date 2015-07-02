@@ -17,7 +17,7 @@ outputs = []
 
 def fetch_menu():
     """
-    Gets today's menu in markdown format.
+    Gets today's menu.
     """
 
     def brana():
