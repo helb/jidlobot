@@ -11,14 +11,8 @@ locale.setlocale(locale.LC_ALL, "cs_CZ.UTF-8")
 config = open("plugins/jidlobot/jidlobot.conf").read().split("\n")
 
 config_channel = re.sub(r".*: ", r"", config[0]).strip()
-config_time = re.sub(r".*: ", r"", config[1]).strip()
-config_hours = int(config_time[0])
-config_mins = int(config_time[1])
 
-crontable = []
 outputs = []
-
-crontable.append([60, "check_time"])
 
 
 def fetch_menu():
@@ -102,28 +96,12 @@ def fetch_menu():
 
         return u"*Vegetka:*\n\n" + menu
 
-    return brana() + "\n\n" + excelent() + "\n\n" + vegetka() + "\n\n"
+    return brana() + "\n\n" + excelent() + "\n\n" + vegetka()
 
 
-def send_menu():
-    """
-    Prints today's menu into channel.
-    """
-
-    date = datetime.strftime(datetime.now(), u"%A %-d.%-m.".encode("utf-8")).decode("utf-8").lower()
-    header = u"*Obědy – " + date + ":*\n\n"
-    menu = header + fetch_menu()
-    outputs.append([config_channel, menu])
-
-
-def check_time():
-    """
-    Checks current time and runs according function(s):
-        - 10:35 - 10:50 - send today's menu into channel
-    """
-
-    hour = datetime.now().hour
-    minute = datetime.now().minute
-
-    if hour == config_hours and minute == config_mins:
-        send_menu()
+date = datetime.strftime(datetime.now(), u"%A %-d.%-m.".encode("utf-8")).decode("utf-8").lower()
+header = u"*Obědy – " + date + ":*\n\n"
+print "Fetching menu"
+menu = header + fetch_menu()
+print menu
+outputs.append([config_channel, menu])

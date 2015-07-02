@@ -1,4 +1,4 @@
-Plugin for [python-rtmbot](https://github.com/slackhq/python-rtmbot) – get lunch menus sent into channel daily.
+Plugin for [python-rtmbot](https://github.com/slackhq/python-rtmbot) – get lunch menus sent into channel.
 
 ## Installation
 
@@ -27,7 +27,7 @@ $ cd jidlobot
 $ pip install -r requirements.txt
 ```
 
-Edit `jidlobot.conf` file and set `CHANNEL` and `TIME`. Channel IDs can be found at `https://slack.com/api/channels.list?token=…`.
+Edit `jidlobot.conf` and set `CHANNEL` to your channel ID – these can be found at `https://slack.com/api/channels.list?token=…`.
 
 Configure rtmbot:
 
@@ -43,6 +43,8 @@ Run the bot:
 ```
 $ ./rtmbot.py
 ```
+
+Create a cron job if everything works.
 
 
 ## TODO
