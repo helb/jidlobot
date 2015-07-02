@@ -8,12 +8,12 @@ import re
 
 locale.setlocale(locale.LC_ALL, "cs_CZ.UTF-8")
 
-config = open("jidlobot.conf").read().split("\n")
+config = open("plugins/jidlobot/jidlobot.conf").read().split("\n")
 
 config_channel = re.sub(r".*: ", r"", config[0]).strip()
 config_time = re.sub(r".*: ", r"", config[1]).strip()
-config_hours = int(time[0])
-config_mins = int(time[1])
+config_hours = int(config_time[0])
+config_mins = int(config_time[1])
 
 crontable = []
 outputs = []
