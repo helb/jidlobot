@@ -22,7 +22,7 @@ Install plugin:
 
 ```
 $ cd plugins
-$ git submodule add git@github.com:helb/jidlobot.git
+$ git clone git@github.com:helb/jidlobot.git
 $ cd jidlobot
 $ pip install -r requirements.txt
 ```
