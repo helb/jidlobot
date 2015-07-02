@@ -46,8 +46,12 @@ $ ./rtmbot.py
 
 Create a cron job if everything works.
 
+Note: rtmbot has no utf8 support, but it's easy to enable it: https://github.com/slackhq/python-rtmbot/pull/9/
+
 
 ## TODO
 
  - support for multiple channels
  - more pubs
+ - handle timeouts when source websites are not working
+ 
