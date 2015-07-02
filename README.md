@@ -27,21 +27,16 @@ $ cd jidlobot
 $ pip install -r requirements.txt
 ```
 
-Configure:
+Edit `jidlobot.conf` file and set `CHANNEL` and `TIME`. Channel IDs can be found at `https://slack.com/api/channels.list?token=…`.
+
+Configure rtmbot:
 
 ```
 $ cd ../..
 $ cp doc/example-config/rtmbot.conf .
 ```
 
-Edit `rtmbot.conf` and set `SLACK_TOKEN`, `JIDLOBOT_CHANNEL` and `JIDLOBOT_TIME`.
-
-Channel IDs can be found at `https://slack.com/api/channels.list?token=…`
-
-```
-JIDLOBOT_CHANNEL: "C123488FOO"
-JIDLOBOT_TIME: "10:50"
-```
+Edit `rtmbot.conf` and set `SLACK_TOKEN`.
 
 Run the bot:
 
