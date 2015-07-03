@@ -2,15 +2,15 @@
 
 from datetime import datetime
 from bs4 import BeautifulSoup
+import yaml
 import urllib2
 import locale
 import re
 
 locale.setlocale(locale.LC_ALL, "cs_CZ.UTF-8")
 
-config = open("plugins/jidlobot/jidlobot.conf").read().split("\n")
-
-config_channel = re.sub(r".*: ", r"", config[0]).strip()
+with open("plugins/jidlobot/jidlobot.conf", 'r') as conf_file:
+    config = yaml.load(conf_file)
 
 outputs = []
 
@@ -102,4 +102,4 @@ def fetch_menu():
 date = datetime.strftime(datetime.now(), u"%A %-d.%-m.".encode("utf-8")).decode("utf-8").lower()
 header = u"*Obědy – " + date + ":*\n\n"
 menu = header + fetch_menu()
-outputs.append([config_channel, menu])
+outputs.append([config["CHANNEL"], menu])
