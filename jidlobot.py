@@ -101,7 +101,5 @@ def fetch_menu():
 
 date = datetime.strftime(datetime.now(), u"%A %-d.%-m.".encode("utf-8")).decode("utf-8").lower()
 header = u"*Obědy – " + date + ":*\n\n"
-print "Fetching menu"
 menu = header + fetch_menu()
-print menu
 outputs.append([config_channel, menu])
