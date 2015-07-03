@@ -13,7 +13,7 @@ $ source bin/activate
 Install rtmbot:
 
 ```
-$ git clone git@github.com:slackhq/python-rtmbot.git
+$ git clone https://github.com/slackhq/python-rtmbot.git
 $ cd python-rtmbot
 $ pip install -r requirements.txt
 ```
@@ -22,7 +22,7 @@ Install plugin:
 
 ```
 $ cd plugins
-$ git clone git@github.com:helb/jidlobot.git
+$ git clone https://github.com/helb/jidlobot.git
 $ cd jidlobot
 $ pip install -r requirements.txt
 ```
@@ -58,7 +58,7 @@ cd python-rtmbot
 
 Example crontab entry (runs every day at 10:45):
 
-```
+```]
 45 10 * * * /path/to/jidlobot.sh
 ```
 
