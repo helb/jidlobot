@@ -56,6 +56,12 @@ cd python-rtmbot
 ./rtmbot.py
 ```
 
+Example crontab entry (runs every day at 10:45):
+
+```
+45 10 * * * /path/to/jidlobot.sh
+```
+
 Note: rtmbot has no utf8 support, but it's easy to enable it: https://github.com/slackhq/python-rtmbot/pull/9/
 
 
