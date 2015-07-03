@@ -100,6 +100,6 @@ def fetch_menu():
 
 
 date = datetime.strftime(datetime.now(), u"%A %-d.%-m.".encode("utf-8")).decode("utf-8").lower()
-header = u"*Obědy – " + date + ":*\n\n"
+header = u"*@channel Obědy – " + date + ":*\n\n"
 menu = header + fetch_menu()
 outputs.append([config["CHANNEL"], menu])
