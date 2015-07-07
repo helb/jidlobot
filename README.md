@@ -13,7 +13,7 @@ $ source bin/activate
 Install rtmbot:
 
 ```
-$ git clone https://github.com/slackhq/python-rtmbot.git
+$ git clone https://github.com/helb/python-rtmbot.git
 $ cd python-rtmbot
 $ pip install -r requirements.txt
 ```
