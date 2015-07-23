@@ -51,7 +51,7 @@ def fetch_menu():
             menu += line
             x += 1
 
-        return u"*U Malické brány:*\n\n" + menu
+        return u"*U Malické brány:*\n" + menu
 
     def excelent():
         """
@@ -67,7 +67,7 @@ def fetch_menu():
             line = re.sub(r"\s{2,}", r" ", line)
             menu += line
 
-        return u"*Excelent Comix Pub:*\n\n" + menu
+        return u"*Excelent Comix Pub:*\n" + menu
 
     def vegetka():
         """
@@ -94,9 +94,9 @@ def fetch_menu():
             menu += line + "\n"
             x += 1
 
-        return u"*Vegetka:*\n\n" + menu
+        return u"*Vegetka:*\n" + menu
 
-    return brana() + "\n\n" + excelent() + "\n\n" + vegetka()
+    return brana() + "\n" + excelent() + "\n" + vegetka()
 
 
 date = datetime.strftime(datetime.now(), u"%A %-d.%-m.".encode("utf-8")).decode("utf-8").lower()
