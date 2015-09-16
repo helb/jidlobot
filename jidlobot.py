@@ -11,7 +11,7 @@ import socket
 locale.setlocale(locale.LC_ALL, "cs_CZ.UTF-8")
 parser = "html5lib"
 
-with open("../../plugins/jidlobot/jidlobot.conf", 'r') as conf_file:
+with open("plugins/jidlobot/jidlobot.conf", 'r') as conf_file:
     config = yaml.load(conf_file)
 
 
