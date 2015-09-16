@@ -27,8 +27,12 @@ $ cd jidlobot
 $ pip install -r requirements.txt
 ```
 
-Edit `jidlobot.conf` and set `CHANNEL` to your channel ID – these can be found at `https://slack.com/api/channels.list?token=…`.
+Edit `jidlobot.conf` and set:
 
+ - `CHANNEL` to your channel ID – these can be found at `https://slack.com/api/channels.list?token=…`.
+ - `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
+ - `URLS` – list of urls at menicka.cz
+ 
 Configure rtmbot:
 
 ```
