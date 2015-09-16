@@ -72,6 +72,3 @@ Note: rtmbot has no utf8 support, but it's easy to enable it: https://github.com
 ## TODO
 
  - support for multiple channels
- - more pubs
- - handle timeouts when source websites are not working
- 
