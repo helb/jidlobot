@@ -57,14 +57,25 @@ def fetch_menu():
         """
 
         menu = ""
-        url = "https://www.zomato.com/plzen/comix-excelent-urban-pub-plze%C5%88"
+        names = []
+        prices = []
+        url = "http://www.menicka.cz/1639-comix-excelent-urban-pub.html"
 
         try:
             html = BeautifulSoup(urllib2.urlopen(url, timeout=config["HTTP_TIMEOUT"]).read(), "html5lib")
-            for i in html.findAll("div", {"class": "tmi-daily"}):
-                line = u"• " + re.sub(r"\s{2,}", r" ", i.text.strip()) + "\n"
-                line = re.sub(r"\s{2,}", r" ", line)
-                menu += line
+            day = html.findAll("div", {"class": "menicka"})[0]
+
+            for j in day.findAll("div", {"class": "nabidka_1"}):
+                names.append(j.text.strip())
+
+            for j in day.findAll("div", {"class": "cena"}):
+                prices.append(j.text.strip())
+
+            x = 0
+            while x < len(names):
+                line = u"• " + names[x] + " " + prices[x]
+                menu += line + "\n"
+                x += 1
 
             return u"*Excelent Comix Pub:*\n" + menu
         except socket.timeout, e:
