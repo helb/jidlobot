@@ -23,39 +23,33 @@ def fetch_menu():
 
     def brana():
         """
-        U Malické brány
+        U Malické Brány
         """
 
         menu = ""
-        amounts = []
         names = []
         prices = []
-        url = "http://www.plzen-info.cz/umalickebrany/index.php?akce=tydenni_nabidka"
+        url = "http://www.menicka.cz/1631-u-malicke-brany.html"
 
         try:
             html = BeautifulSoup(urllib2.urlopen(url, timeout=config["HTTP_TIMEOUT"]).read(), "html5lib")
-            for i in html.findAll("table", {"width": "99%"}):
-                x = 0
-                for j in i.findAll("td", {"width": "10%"}):
-                    if x % 2 != 0:
-                        prices.append(u"" + j.text.replace(u",-  Kč", u" Kč").strip())
-                    else:
-                        amounts.append(j.text.strip())
-                    x += 1
+            day = html.findAll("div", {"class": "menicka"})[0]
 
-                for j in i.findAll("td", {"width": "53%"}):
-                    names.append(j.text.strip())
+            for j in day.findAll("div", {"class": "nabidka_1"}):
+                names.append(j.text.strip())
+
+            for j in day.findAll("div", {"class": "cena"}):
+                prices.append(j.text.strip())
 
             x = 0
             while x < len(names):
-                line = u"• " + re.sub(r"^g$", r"", amounts[x]) + " " + names[x] + " " + prices[x]
-                line = re.sub(r"\s{2,}", r" ", line) + "\n"
-                menu += line
+                line = u"• " + names[x] + " " + prices[x]
+                menu += line + "\n"
                 x += 1
 
-            return u"*U Malické brány:*\n" + menu
+            return u"*U Malické Brány:*\n" + menu
         except socket.timeout, e:
-            return u"*U Malické brány:*\n timeout :angry:\n"
+            return u"*U Malické Brány:*\n timeout :angry:\n"
 
     def excelent():
         """
