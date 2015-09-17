@@ -31,15 +31,11 @@ def fetch_menu(url):
 
         for j in day.findAll("div", {"class": "nabidka_1"}):
             names.append(" ".join(j.text.strip().split()))
+            prices.append(j.next_sibling.next_sibling.text.strip())
 
-        for j in day.findAll("div", {"class": "cena"}):
-            prices.append(j.text.strip())
-
-        x = 0
-        while x < len(names):
-            line = u"• " + names[x] + " " + prices[x]
+        for i in range(len(names)):
+            line = u"• " + names[i] + " " + prices[i]
             menu += line + "\n"
-            x += 1
 
         return u"*" + restaurant + ":*\n" + menu
     except socket.timeout, e:
