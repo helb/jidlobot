@@ -66,9 +66,9 @@ Example crontab entry (runs Monday to Friday at 10:58):
 58 10 * * 1-5 /path/to/jidlobot.sh
 ```
 
-(Slack sends out e–mail notifications at :00/:15/:30/:45 mins, so it's handy to have the script run minute or two before that)
+(Slack sends out e–mail notifications at :00/:15/:30/:45 mins, so it's handy to have the script run a minute or two before that)
 
-Note: rtmbot has no utf8 support, but it's easy to enable it: https://github.com/slackhq/python-rtmbot/pull/9/
+*Note: rtmbot has no utf8 support, but it's easy to enable it: https://github.com/slackhq/python-rtmbot/pull/9/*
 
 
 ## TODO
