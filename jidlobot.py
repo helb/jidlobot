@@ -41,9 +41,38 @@ def fetch_menu(url):
     except socket.timeout, e:
         return u"" + url + ": timeout :angry:\n"
 
+
+def fetch_lokal_menu(url):
+    """
+    Gets today's menu from Lokal/Ambiente URL.
+    """
+
+    menu = ""
+    names = []
+    prices = []
+
+    try:
+        html = BeautifulSoup(urllib2.urlopen(url, timeout=config["HTTP_TIMEOUT"]).read(), parser)
+        meals = html.findAll("img", {"alt": config["LOKAL_NAME"]})[0].parent.parent.findAll("div", {"class": "list"})[0].findAll("table")[0].findAll("tr", {"class": None})
+
+        for line in meals:
+            names.append(" ".join(line.findAll("td")[0].text.strip().split()))
+            prices.append(line.findAll("td")[1].text.strip())
+
+        for i in range(len(names)):
+            line = u"• " + names[i] + " " + prices[i]
+            menu += line + "\n"
+
+        return u"*" + config["LOKAL_NAME"] + ":*\n" + menu
+    except socket.timeout, e:
+        return u"" + url + ": timeout :angry:\n"
+
 menus = []
+
 for url in config["URLS"]:
     menus.append(fetch_menu(url))
+
+menus.append(fetch_lokal_menu(config["LOKAL_URL"]))
 
 date = datetime.strftime(datetime.now(), u"%A %-d.%-m.".encode("utf-8")).decode("utf-8").lower()
 header = u"<!channel> *Obědy – " + date + ":*\n\n"
