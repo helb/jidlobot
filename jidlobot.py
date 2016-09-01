@@ -7,6 +7,7 @@ import urllib2
 import locale
 import re
 import socket
+import sys
 
 locale.setlocale(locale.LC_ALL, "cs_CZ.UTF-8")
 parser = "html5lib"
@@ -79,4 +80,6 @@ header = u"<!channel> *Obědy – " + date + ":*\n\n"
 message = header + "\n".join(menus)
 
 outputs = []
-outputs.append([config["CHANNEL"], message])
+print message
+# outputs.append([config["CHANNEL"], message])
+sys.exit(0)
