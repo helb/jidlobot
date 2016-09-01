@@ -80,6 +80,5 @@ header = u"<!channel> *Obědy – " + date + ":*\n\n"
 message = header + "\n".join(menus)
 
 outputs = []
-print message
-# outputs.append([config["CHANNEL"], message])
+outputs.append([config["CHANNEL"], message])
 sys.exit(0)
