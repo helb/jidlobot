@@ -1,19 +1,19 @@
-Mattermost "bot" – get lunch menus sent into channel.
+> get lunch menus sent to your e-mail
 
 ## Installation
 
-Clone the repo and install dependencies:
+Clone the repo:
 
 ```
 $ git clone https://github.com/helb/jidlobot.git
 $ cd jidlobot
 ```
 
-Create virtual environment:
+Create a virtual environment:
 
 ```
-$ virtualenv -p `which python3` venv
-$ source venv/bin/activate
+$ virtualenv -p `which python3` .venv
+$ source .venv/bin/activate
 ```
 
 Install dependencies:
@@ -25,11 +25,12 @@ $ pip install -r requirements.txt
 
 Edit `jidlobot.conf` and set:
 
- - `MATTERMOST_KEY` – [Mattermost docs: Incoming Webhooks](https://docs.mattermost.com/developer/webhooks-incoming.html)
  - `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
  - `URLS` – list of urls at menicka.cz
+ - `MAIL_FROM`, `MAIL_PW`, `MAIL_SERVER`, `MAIL_PORT` – SMTP server credentials for sending e-mails
+ - `MAIL_TO` – list of recipients
 
-Run the bot:
+## Running
 
 ```
 $ ./jidlobot.py
@@ -41,13 +42,14 @@ Example script for running from cron:
 
 ```bash
 #!/bin/bash
+set -e
 cd /path/to/jidlobot
-source venv/bin/activate
-./jidlobot.py
+source .venv/bin/activate
+python jidlobot.py
 ```
 
 Example crontab entry (runs Monday to Friday at 10:58):
 
 ```
-58 10 * * 1-5 /path/to/jidlobot.sh
+58  10  *  *  1-5  /path/to/jidlobot.sh
 ```

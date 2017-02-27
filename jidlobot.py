@@ -20,7 +20,7 @@ with open("jidlobot.conf", 'r') as conf_file:
 
 def fetch_menu(url):
     """
-    Gets today's menu from given URL.
+    Gets today menu from given URL at menicka.cz.
     """
 
     menu = ""
@@ -41,31 +41,6 @@ def fetch_menu(url):
             menu += line + "\n"
 
         return "\n<h2>" + restaurant + ":</h2>\n\n<ul>" + menu + "</ul>"
-    except socket.timeout:
-        return "" + url + ": timeout :angry:\n"
-
-
-def fetch_lokal_menu(url):
-    """
-    Gets today's menu from Lokal/Ambiente URL.
-    """
-
-    menu = ""
-    names = []
-    prices = []
-    try:
-        html = BeautifulSoup(urlopen(url, timeout=config["HTTP_TIMEOUT"]).read(), parser)
-        meals = html.findAll("img", {"alt": config["LOKAL_NAME"]})[0].parent.parent.findAll("div", {"class": "list"})[0].findAll("table")[0].findAll("tr", {"class": None})
-
-        for line in meals:
-            names.append(" ".join(line.findAll("td")[0].text.strip().split()))
-            prices.append(line.findAll("td")[1].text.strip())
-
-        for i in range(len(names)):
-            line = "<li>" + names[i] + " " + prices[i] + "</li>"
-            menu += line + "\n"
-
-        return "\n<h2>" + config["LOKAL_NAME"] + ":</h2><ul>" + menu + "</ul>"
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
 
@@ -95,16 +70,16 @@ def send_mail(body, subject):
 
         h2 {
             color: #b42112;
-            font-weight: normal;
             font-size: 1.25em;
-            margin: 1em 0 0.5em;
+            font-weight: normal;
             line-height: 1.5em;
+            margin: 1em 0 0.5em;
         }
 
         ul {
+            line-height: 1.5em;
             list-style-position: outside;
             margin-left: 1.5em;
-            line-height: 1.5em;
         }
 
         li {
@@ -114,7 +89,7 @@ def send_mail(body, subject):
         body_html = "<html><head><style type='text/css'>" + css + "</style></head><body>" + body + "</body></html>"
         html_part = MIMEText(body_html, "html")
 
-        for recipient  in config["MAIL_TO"]:
+        for recipient in config["MAIL_TO"]:
             msg = MIMEMultipart()
             msg["From"] = config["MAIL_FROM"]
             msg["To"] = recipient
@@ -131,7 +106,6 @@ def get_menus():
     menus = []
     for url in config["URLS"]:
         menus.append(fetch_menu(url))
-    menus.append(fetch_lokal_menu(config["LOKAL_URL"]))
     return "\n".join(menus)
 
 
@@ -139,5 +113,6 @@ def get_title():
     date = datetime.strftime(datetime.now(), "%A %-d.%-m.")
     return "[jidlobot] Obědy – " + date
 
+
 print(get_menus(), get_title())
-#send_mail(get_menus(), get_title())
+# send_mail(get_menus(), get_title())
