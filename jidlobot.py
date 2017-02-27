@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
@@ -9,6 +7,9 @@ import re
 import socket
 import sys
 import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 
 locale.setlocale(locale.LC_ALL, "cs_CZ.UTF-8")
 parser = "html5lib"
@@ -36,10 +37,10 @@ def fetch_menu(url):
             prices.append(j.next_sibling.next_sibling.text.strip())
 
         for i in range(len(names)):
-            line = "• " + names[i] + " " + prices[i]
+            line = "<li>" + names[i] + " " + prices[i] + "</li>"
             menu += line + "\n"
 
-        return restaurant + ":\n" + "-" * (len(restaurant) + 1) + "\n" + menu
+        return "\n<h2>" + restaurant + ":</h2>\n\n<ul>" + menu + "</ul>"
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
 
@@ -61,10 +62,10 @@ def fetch_lokal_menu(url):
             prices.append(line.findAll("td")[1].text.strip())
 
         for i in range(len(names)):
-            line = "• " + names[i] + " " + prices[i]
+            line = "<li>" + names[i] + " " + prices[i] + "</li>"
             menu += line + "\n"
 
-        return config["LOKAL_NAME"] + ":\n" + "-" * (len(config["LOKAL_NAME"]) + 1) + "\n" + menu
+        return "\n<h2>" + config["LOKAL_NAME"] + ":</h2><ul>" + menu + "</ul>"
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
 
@@ -79,11 +80,51 @@ def send_mail(body, subject):
         mail.ehlo()
         mail.starttls()
         mail.login(config["MAIL_FROM"], config["MAIL_PW"])
-        header = "To:" + config["MAIL_TO"] + "\n" + "From: " + config["MAIL_FROM"] + "\n" + "Subject: " + subject + " \n"
-        message = header + "\n" + body + "\n\n"
-        mail.sendmail(config["MAIL_FROM"], config["MAIL_TO"], message.encode("utf-8"))
+
+        css = """
+        body {
+            background: #eee;
+            color: #333;
+            font: 11pt sans-serif;
+        }
+
+        body * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #b42112;
+            font-weight: normal;
+            font-size: 1.25em;
+            margin: 1em 0 0.5em;
+            line-height: 1.5em;
+        }
+
+        ul {
+            list-style-position: outside;
+            margin-left: 1.5em;
+            line-height: 1.5em;
+        }
+
+        li {
+            color: #333;
+        }
+        """
+        body_html = "<html><head><style type='text/css'>" + css + "</style></head><body>" + body + "</body></html>"
+        html_part = MIMEText(body_html, "html")
+
+        for recipient  in config["MAIL_TO"]:
+            msg = MIMEMultipart()
+            msg["From"] = config["MAIL_FROM"]
+            msg["To"] = recipient
+            msg["Subject"] = subject
+            msg.attach(html_part)
+            mail.sendmail(config["MAIL_FROM"], recipient, msg.as_string())
+
+        mail.quit()
     except Exception as e:
-        print("Error sending e-mails.")
+        print("Error sending e-mails: " + str(e))
 
 
 def get_menus():
@@ -98,4 +139,5 @@ def get_title():
     date = datetime.strftime(datetime.now(), "%A %-d.%-m.")
     return "[jidlobot] Obědy – " + date
 
-send_mail(get_menus(), get_title())
+print(get_menus(), get_title())
+#send_mail(get_menus(), get_title())
