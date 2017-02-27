@@ -114,5 +114,4 @@ def get_title():
     return "[jidlobot] Obědy – " + date
 
 
-print(get_menus(), get_title())
-# send_mail(get_menus(), get_title())
+send_mail(get_menus(), get_title())
