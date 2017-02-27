@@ -89,13 +89,12 @@ def send_mail(body, subject):
         body_html = "<html><head><style type='text/css'>" + css + "</style></head><body>" + body + "</body></html>"
         html_part = MIMEText(body_html, "html")
 
-        for recipient in config["MAIL_TO"]:
-            msg = MIMEMultipart()
-            msg["From"] = config["MAIL_FROM"]
-            msg["To"] = recipient
-            msg["Subject"] = subject
-            msg.attach(html_part)
-            mail.sendmail(config["MAIL_FROM"], recipient, msg.as_string())
+        msg = MIMEMultipart()
+        msg["From"] = config["MAIL_FROM"]
+        msg["To"] = ", ".join(config["MAIL_TO"])
+        msg["Subject"] = subject
+        msg.attach(html_part)
+        mail.sendmail(config["MAIL_FROM"], config["MAIL_TO"], msg.as_string())
 
         mail.quit()
     except Exception as e:
