@@ -30,7 +30,7 @@ def fetch_menu(url):
     prices = []
 
     try:
-        result = requests.get(url)
+        result = requests.get(url, timeout=config["HTTP_TIMEOUT"])
         html = BeautifulSoup(result.content, parser)
         day = html.findAll("div", {"class": "menicka"})[0]
         restaurant = html.findAll("span", {"class": "org"})[0].text
@@ -56,7 +56,7 @@ def send_to_mattermost(body, subject):
         "text": message
     })
 
-    requests.post(config["MATTERMOST_WEBHOOK"], data=payload)
+    requests.post(config["MATTERMOST_WEBHOOK"], data=payload, timeout=config["HTTP_TIMEOUT"])
 
 
 def send_mail(body, subject):
