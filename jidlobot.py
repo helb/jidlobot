@@ -1,12 +1,14 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
-from urllib.request import urlopen
+import requests
 import yaml
 import locale
 import re
 import socket
 import sys
 import smtplib
+import json
+import mistune
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -20,7 +22,7 @@ with open("jidlobot.conf", 'r') as conf_file:
 
 def fetch_menu(url):
     """
-    Gets today menu from given URL at menicka.cz.
+    Gets today menu from given URL at menicka.cz and output it in Markdown format.
     """
 
     menu = ""
@@ -28,7 +30,8 @@ def fetch_menu(url):
     prices = []
 
     try:
-        html = BeautifulSoup(urlopen(url, timeout=config["HTTP_TIMEOUT"]).read(), parser)
+        result = requests.get(url)
+        html = BeautifulSoup(result.content, parser)
         day = html.findAll("div", {"class": "menicka"})[0]
         restaurant = html.findAll("span", {"class": "org"})[0].text
 
@@ -37,12 +40,23 @@ def fetch_menu(url):
             prices.append(j.next_sibling.next_sibling.text.strip())
 
         for i in range(len(names)):
-            line = "<li>" + names[i] + " " + prices[i] + "</li>"
+            line = "- " + names[i] + " " + prices[i]
             menu += line + "\n"
 
-        return "\n<h2>" + restaurant + ":</h2>\n\n<ul>" + menu + "</ul>"
+        return "\n## " + restaurant + ":\n\n" + menu
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
+
+
+def send_to_mattermost(body, subject):
+    message = "@channel\n\n# " + subject + "\n\n" + body
+    payload = json.dumps({
+        "channel": config["MATTERMOST_CHANNEL"],
+        "username": config["MATTERMOST_USERNAME"],
+        "text": message
+    })
+
+    requests.post(config["MATTERMOST_WEBHOOK"], data=payload)
 
 
 def send_mail(body, subject):
@@ -86,13 +100,16 @@ def send_mail(body, subject):
             color: #333;
         }
         """
-        body_html = "<html><head><style type='text/css'>" + css + "</style></head><body>" + body + "</body></html>"
+
+        body_html = "<html><head><style type='text/css'>" + css +
+        "</style></head>" + "<body>" + mistune.markdown(body) + "</body></html>"
+
         html_part = MIMEText(body_html, "html")
 
         msg = MIMEMultipart()
         msg["From"] = config["MAIL_FROM"]
         msg["To"] = ", ".join(config["MAIL_TO"])
-        msg["Subject"] = subject
+        msg["Subject"] = "[jidlobot] " + subject
         msg.attach(html_part)
         mail.sendmail(config["MAIL_FROM"], config["MAIL_TO"], msg.as_string())
 
@@ -110,7 +127,13 @@ def get_menus():
 
 def get_title():
     date = datetime.strftime(datetime.now(), "%A %-d.%-m.")
-    return "[jidlobot] Obědy – " + date
+    return "Obědy – " + date
 
 
-send_mail(get_menus(), get_title())
+menus = get_menus()
+title = get_title()
+
+if "mail" in config["BACKENDS"]:
+    send_mail(menus, title)
+if "mattermost" in config["BACKENDS"]:
+    send_to_mattermost(menus, title)
