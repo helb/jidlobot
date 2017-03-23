@@ -1,4 +1,4 @@
-> get lunch menus sent to your e-mail
+> get lunch menus sent to your e-mail/channel
 
 ## Installation
 
@@ -23,12 +23,30 @@ $ pip install -r requirements.txt
 ```
 
 
-Edit `jidlobot.conf` and set:
+Edit `jidlobot.conf` (YAML format) and set:
 
- - `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
- - `URLS` – list of urls at menicka.cz
- - `MAIL_FROM`, `MAIL_PW`, `MAIL_SERVER`, `MAIL_PORT` – SMTP server credentials for sending e-mails
- - `MAIL_TO` – list of recipients
+-   `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
+-   `URLS` – list of urls at menicka.cz
+-   `BACKENDS` – where to send the message, current choices are `mail` and `mattermost`.
+
+If using `mail` backend:
+
+-   `MAIL_FROM`, `MAIL_PW`, `MAIL_SERVER`, `MAIL_PORT` – SMTP server credentials for sending e-mails
+-   `MAIL_TO` – list of recipients
+
+If using `mattermost` backend:
+
+-   `MATTERMOST_WEBHOOK` – URL for webhook, `https://mattermost.…/hooks/…`
+-   `MATTERMOST_CHANNEL` – channel name
+-   `MATTERMOST_USERNAME` – bot's username
+
+More than one backend can be used at the same time, eg.:
+
+```yaml
+BACKENDS:
+    - mattermost
+    - mail
+```
 
 ## Running
 
