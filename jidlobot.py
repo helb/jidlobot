@@ -43,13 +43,13 @@ def fetch_menu(url):
             line = "- " + names[i] + " " + prices[i]
             menu += line + "\n"
 
-        return "\n## " + restaurant + ":\n\n" + menu
+        return "\n#### " + restaurant + ":\n\n" + menu
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
 
 
 def send_to_mattermost(body, subject):
-    message = "@channel\n\n# " + subject + "\n\n" + body
+    message = "@channel\n\n### " + subject + "\n\n" + body
     payload = json.dumps({
         "channel": config["MATTERMOST_CHANNEL"],
         "username": config["MATTERMOST_USERNAME"],
@@ -82,7 +82,7 @@ def send_mail(body, subject):
             padding: 0;
         }
 
-        h2 {
+        h4 {
             color: #b42112;
             font-size: 1.25em;
             font-weight: normal;
