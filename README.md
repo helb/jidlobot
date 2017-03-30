@@ -27,7 +27,7 @@ Edit `jidlobot.conf` (YAML format) and set:
 
 -   `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
 -   `URLS` – list of urls at menicka.cz
--   `BACKENDS` – where to send the message, current choices are `mail` and `mattermost`.
+-   `BACKENDS` – where to send the message, current choices are `mail`, `mattermost`, and `console` (which just prints the output).
 
 If using `mail` backend:
 
@@ -46,6 +46,7 @@ More than one backend can be used at the same time, eg.:
 BACKENDS:
     - mattermost
     - mail
+    - console
 ```
 
 ## Running

@@ -101,8 +101,7 @@ def send_mail(body, subject):
         }
         """
 
-        body_html = "<html><head><style type='text/css'>" + css +
-        "</style></head>" + "<body>" + mistune.markdown(body) + "</body></html>"
+        body_html = "<html><head><style type='text/css'>" + css + "</style></head>" + "<body>" + mistune.markdown(body) + "</body></html>"
 
         html_part = MIMEText(body_html, "html")
 
@@ -137,3 +136,7 @@ if "mail" in config["BACKENDS"]:
     send_mail(menus, title)
 if "mattermost" in config["BACKENDS"]:
     send_to_mattermost(menus, title)
+if "console" in config["BACKENDS"]:
+    print(title)
+    print("\n")
+    print(menus)
