@@ -1,4 +1,6 @@
-> get lunch menus sent to your e-mail/channel
+# 🍔🥓 jidlobot 🍕🍄
+
+> get lunch menus sent to your e-mail/groupchat
 
 ## Installation
 
@@ -39,6 +41,13 @@ If using `mattermost` backend:
 -   `MATTERMOST_WEBHOOK` – URL for webhook, `https://mattermost.…/hooks/…`
 -   `MATTERMOST_CHANNEL` – channel name
 -   `MATTERMOST_USERNAME` – bot's username
+
+If using `hipchat` backend:
+
+-    HIPCHAT_URL: – URL of your HipChat server, with trailing slash
+-    HIPCHAT_ROOM: – room ID
+-    HIPCHAT_TOKEN: – room notification token
+-    HIPCHAT_COLOR: – message background, valid values are  `yellow`, `green`, `red`, `purple`, `gray`, and `random`.
 
 More than one backend can be used at the same time, eg.:
 
