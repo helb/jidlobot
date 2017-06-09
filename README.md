@@ -24,12 +24,15 @@ Install dependencies:
 $ pip install -r requirements.txt
 ```
 
-
 Edit `jidlobot.conf` (YAML format) and set:
 
 -   `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
 -   `URLS` – list of urls at menicka.cz
--   `BACKENDS` – where to send the message, current choices are `mail`, `mattermost`, and `console` (which just prints the output).
+-   `BACKENDS` – where to send the message:
+    -   `mail`
+    -   `mattermost`
+    -   `hipchat`
+    -   `console` (just prints the output).
 
 If using `mail` backend:
 
@@ -44,10 +47,10 @@ If using `mattermost` backend:
 
 If using `hipchat` backend:
 
--    HIPCHAT_URL: – URL of your HipChat server, with trailing slash
--    HIPCHAT_ROOM: – room ID
--    HIPCHAT_TOKEN: – room notification token
--    HIPCHAT_COLOR: – message background, valid values are  `yellow`, `green`, `red`, `purple`, `gray`, and `random`.
+-   HIPCHAT_URL: – URL of your HipChat server, with trailing slash
+-   HIPCHAT_ROOM: – room ID
+-   HIPCHAT_TOKEN: – room notification token
+-   HIPCHAT_COLOR: – message background, valid values are  `yellow`, `green`, `red`, `purple`, `gray`, and `random`.
 
 More than one backend can be used at the same time, eg.:
 
