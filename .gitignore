@@ -1,5 +1,5 @@
 # Production config
-jidlobot.conf
+jidlobot.yml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
