@@ -24,7 +24,7 @@ Install dependencies:
 $ pip install -r requirements.txt
 ```
 
-Edit `jidlobot.conf` (YAML format) and set:
+Copy `jidlobot.yml.exmaple` to `jidlobot.yml` and set:
 
 -   `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
 -   `URLS` – list of urls at menicka.cz
