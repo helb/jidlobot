@@ -4,6 +4,12 @@
 
 ## Installation
 
+### Using Ansible
+
+[→ ansible-role/README.md](ansible-role/README.md)
+
+### Manually
+
 Clone the repo:
 
 ```
@@ -47,10 +53,10 @@ If using `mattermost` backend:
 
 If using `hipchat` backend:
 
--   HIPCHAT_URL: – URL of your HipChat server, with trailing slash
--   HIPCHAT_ROOM: – room ID
--   HIPCHAT_TOKEN: – room notification token
--   HIPCHAT_COLOR: – message background, valid values are  `yellow`, `green`, `red`, `purple`, `gray`, and `random`.
+-   `HIPCHAT_URL` – URL of your HipChat server, with trailing slash
+-   `HIPCHAT_ROOM` – room ID
+-   `HIPCHAT_TOKEN` – room notification token
+-   `HIPCHAT_COLOR` – message background, valid values are  `yellow`, `green`, `red`, `purple`, `gray`, and `random`.
 
 More than one backend can be used at the same time, eg.:
 
@@ -61,7 +67,7 @@ BACKENDS:
     - console
 ```
 
-## Running
+### Running
 
 ```
 $ ./jidlobot.py
