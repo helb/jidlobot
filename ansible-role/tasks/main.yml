@@ -1,0 +1,68 @@
+---
+# Ansible role
+#
+# Install and configure jidlobot
+
+- name: Create jidlobot user
+  user:
+    name: 'jidlobot'
+    group: 'nogroup'
+    shell: '/bin/false'
+    home: '/var/lib/jidlobot'
+
+- name: Install apt requirements
+  apt:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ jidlobot_requirements }}'
+
+- name: Clone jidlobot repo
+  git:
+    repo: '{{ jidlobot_repo_url }}'
+    dest: '{{ jidlobot_install_path }}'
+
+- name: Create virtualenv
+  pip:
+    virtualenv: '{{ jidlobot_install_path }}/.venv'
+    virtualenv_python: 'python3'
+    requirements: '{{ jidlobot_install_path }}/requirements.txt'
+
+- name: Configure jidlobot
+  template:
+    src: 'jidlobot.conf.j2'
+    dest: '{{ jidlobot_install_path }}/jidlobot.conf'
+    owner: 'jidlobot'
+    group: 'nogroup'
+    mode: '0600'
+
+- name: Install cron script
+  template:
+    src: 'jidlobot-cron.sh.j2'
+    dest: '/opt/jidlobot-cron.sh'
+    mode: '0755'
+
+- block:
+  - name: Cron MAILTO variable
+    cron:
+      env: yes
+      name: 'MAILTO'
+      value: '{{ jidlobot_admin_mail }}'
+      user: 'root'
+      cron_file: 'jidlobot'
+
+  - name: Configure cron
+    cron:
+      name: 'run jidlobot'
+      hour: '{{ jidlobot_cron.hour|default(omit) }}'
+      minute: '{{ jidlobot_cron.minute|default(omit) }}'
+      day: '{{ jidlobot_cron.day|default(omit) }}'
+      month: '{{ jidlobot_cron.month|default(omit) }}'
+      weekday: '{{ jidlobot_cron.weekday|default(omit) }}'
+      user: jidlobot
+      job: '/opt/jidlobot-cron.sh'
+      cron_file: 'jidlobot'
+
+  tags:
+    - cron
+
+...

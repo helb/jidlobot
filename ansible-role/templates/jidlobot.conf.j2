@@ -1,0 +1,14 @@
+## jidlobot.conf
+
+HTTP_TIMEOUT: 5
+URLS:
+{% for url in jidlobot_urls %}
+  - {{ url }}
+{% endfor %}
+
+BACKENDS:
+  - mattermost
+
+MATTERMOST_WEBHOOK: {{ jidlobot_mattermost_webhook }}
+MATTERMOST_CHANNEL: {{ jidlobot_mattermost_channel }}
+MATTERMOST_USERNAME: {{ jidlobot_mattermost_username }}

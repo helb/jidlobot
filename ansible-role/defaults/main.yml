@@ -1,0 +1,22 @@
+---
+# Ansible vars
+#
+# Default variables for jidlobot role
+
+jidlobot_admin_mail: ''
+
+jidlobot_cron:
+  hour: '10'
+  minute: '58'
+  weekday: '1-5'
+
+jidlobot_repo_url: 'https://github.com/helb/jidlobot.git'
+jidlobot_install_path: '/opt/jidlobot'
+
+jidlobot_requirements:
+  - git
+  - python3
+  - virtualenv
+  - libyaml-dev
+
+...
