@@ -29,8 +29,8 @@
 
 - name: Configure jidlobot
   template:
-    src: 'jidlobot.conf.j2'
-    dest: '{{ jidlobot_install_path }}/jidlobot.conf'
+    src: 'jidlobot.yml.j2'
+    dest: '{{ jidlobot_install_path }}/jidlobot.yml'
     owner: 'jidlobot'
     group: 'nogroup'
     mode: '0600'
