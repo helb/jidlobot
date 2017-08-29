@@ -16,7 +16,7 @@ def fetch_menu(url, config):
         day = html.findAll("div", {"class": "menicka"})[0]
         restaurant = html.findAll("span", {"class": "org"})[0].text
 
-        for j in day.findAll("div", {"class": "nabidka_1"}):
+        for j in day.select("div[class*='nabidka_']"):
             names.append(" ".join(j.text.strip().split()))
             prices.append(j.next_sibling.next_sibling.text.strip())
 
