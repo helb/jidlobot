@@ -15,6 +15,10 @@ def fetch_menu(url, config):
         html = BeautifulSoup(result.content, "html5lib")
         day = html.findAll("div", {"class": "menicka"})[0]
         restaurant = html.findAll("span", {"class": "org"})[0].text
+        
+        for j in day.select("div[class='doplnujici_info']"):
+            names.append(" ".join(j.text.strip().split()))
+            prices.append(j.next_sibling.next_sibling.text.strip())
 
         for j in day.select("div[class*='nabidka_']"):
             names.append(" ".join(j.text.strip().split()))
