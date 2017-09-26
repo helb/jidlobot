@@ -21,6 +21,8 @@ def fetch_menu(url, config):
             prices.append(j.next_sibling.next_sibling.text.strip())
 
         for j in day.select("div[class*='nabidka_']"):
+            for alergen in j.find_all("em"):
+                alergen.replaceWith("");
             names.append(" ".join(j.text.strip().split()))
             prices.append(j.next_sibling.next_sibling.text.strip())
 
