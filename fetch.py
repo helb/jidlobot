@@ -15,14 +15,14 @@ def fetch_menu(url, config):
         html = BeautifulSoup(result.content, "html5lib")
         day = html.findAll("div", {"class": "menicka"})[0]
         restaurant = html.findAll("span", {"class": "org"})[0].text
-        
+
         for j in day.select("div[class='doplnujici_info']"):
             names.append(" ".join(j.text.strip().split()))
             prices.append(j.next_sibling.next_sibling.text.strip())
 
         for j in day.select("div[class*='nabidka_']"):
             for alergen in j.find_all("em"):
-                alergen.replaceWith("");
+                alergen.replaceWith("")
             names.append(" ".join(j.text.strip().split()))
             prices.append(j.next_sibling.next_sibling.text.strip())
 
@@ -30,7 +30,11 @@ def fetch_menu(url, config):
             line = "- " + names[i] + " " + prices[i]
             menu += line + "\n"
 
-        return "\n#### " + restaurant + ":\n\n" + menu
+        if len(menu) > 0:
+            return "\n#### " + restaurant + ":\n\n" + menu
+        else:
+            return ""
+
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
 
