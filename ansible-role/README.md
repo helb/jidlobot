@@ -12,10 +12,6 @@ The role currently support only *mattermost* module.
 | ----------------- | -------- | ------------ | ----------- |
 | jidlobot_urls     | yes      |              | List of *menicka* URLs of desired restaurants (value of `URLS` config parameter) |
 |                   |          |              |  |
-| jidlobot_mattermost_webhook | yes |         | URL for Mattermost webhook (`MATTERMOST_WEBHOOK` parameter) |
-| jidlobot_mattermost_channel | yes |         | Used Mattermost channel (`MATTERMOST_CHANNEL` parameter) |
-| jidlobot_mattermost_username | yes |        | Used bot's username (`MATTERMOST_USERNAME` parameter) |
-|                   |          |              |  |
 | jidlobot_install_path | no   | /opt/jidlobot | Directory where jidlobot would be installed |
 |                   |          |              |  |
 | jidlobot_admin_mail | no     |              | `MAILTO` recipients in cron job |
@@ -25,6 +21,12 @@ The role currently support only *mattermost* module.
 | .day              | no       | *            | `day` parameter for cron job |
 | .month            | no       | *            | `month` parameter for cron job |
 | .weekday          | no       | *            | `weekday` parameter for cron job |
+|                   |          |              |  |
+| jidlobot_backend  | yes      |              | Definition of jidlobot backends (see *jidlobot documentation* for details); dictionary with following parameters |
+| .console          | no       |              | Definition of console backend |
+| .mail             | no       |              | Definition of mail backend (parameters are `from`, `to`, `server`, `port`, `user`, `pw` and `starttls`) |
+| .mattermost       | no       |              | Definition of Mattermost backend (parameters are `webhook`, `channel` and `username`) |
+| .hipchat          | no       |              | Definition of Hipchat backend (parameters are `url`, `room`, `token` and `color`) |
 
 Default `jidlobot_cron` variable is set to:
 ```

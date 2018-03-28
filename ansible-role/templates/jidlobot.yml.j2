@@ -7,8 +7,43 @@ URLS:
 {% endfor %}
 
 BACKENDS:
+{% if jidlobot_backend.console is defined %}
+  - console
+{% endif %}
+{% if jidlobot_backend.mail is defined %}
+  - mail
+{% endif %}
+{% if jidlobot_backend.mattermost is defined %}
   - mattermost
+{% endif %}
+{% if jidlobot_backend.hipchat is defined %}
+  - hipchat
+{% endif %}
 
-MATTERMOST_WEBHOOK: {{ jidlobot_mattermost_webhook }}
-MATTERMOST_CHANNEL: {{ jidlobot_mattermost_channel }}
-MATTERMOST_USERNAME: {{ jidlobot_mattermost_username }}
+{% if jidlobot_backend.mail is defined %}
+MAIL_FROM: {{ jidlobot_backend.mail.from }}
+MAIL_TO:
+{%   for address in jidlobot_backend.mail.to %}
+  - {{ address }}
+{%   endfor %}
+MAIL_SERVER: {{ jidlobot_backend.mail.server|default('localhost') }}
+MAIL_PORT: {{ jidlobot_backend.mail.port|default(25) }}
+{%   if jidlobot_backend.mail.pw is defined %}
+MAIL_USER: {{ jidlobot_backend.mail.user|default(jidlobot_backend.mail.from) }}
+MAIL_PW: {{ jidlobot_backend.mail.pw }}
+{%   endif %}
+MAIL_STARTTLS: {{ jidlobot_backend.mail.starttls|default(True) }}
+{% endif %}
+
+{% if jidlobot_backend.mattermost is defined %}
+MATTERMOST_WEBHOOK: {{ jidlobot_backend.mattermost.webhook }}
+MATTERMOST_CHANNEL: {{ jidlobot_backend.mattermost.channel }}
+MATTERMOST_USERNAME: {{ jidlobot_backend.mattermost.username }}
+{% endif %}
+
+{% if jidlobot_backend.hipchat is defined %}
+HIPCHAT_URL: {{ jidlobot_backend.hipchat.url }}
+HIPCHAT_ROOM: {{ jidlobot_backend.hipchat.room }}
+HIPCHAT_TOKEN: {{ jidlobot_backend.hipchat.token }}
+HIPCHAT_COLOR: {{ jidlobot_backend.hipchat.color|default('yellow') }}
+{% endif %}
