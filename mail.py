@@ -5,11 +5,19 @@ from email.mime.text import MIMEText
 
 
 def send_mail(body, subject, config):
+    # set default values
+    mail_server = config.get('MAIL_SERVER','localhost')
+    mail_port = config.get('MAIL_PORT',25)
+    mail_from = config.get('MAIL_FROM')
+    mail_to = config.get('MAIL_TO')
+    mail_pw = config.get('MAIL_PW')
+
+
     try:
-        mail = smtplib.SMTP(config["MAIL_SERVER"], config["MAIL_PORT"])
+        mail = smtplib.SMTP(mail_server, mail_port)
         mail.ehlo()
         mail.starttls()
-        mail.login(config["MAIL_FROM"], config["MAIL_PW"])
+        mail.login(mail_from, mail_pw)
 
         css = """
         body {
@@ -47,11 +55,11 @@ def send_mail(body, subject, config):
         html_part = MIMEText(body_html, "html")
 
         msg = MIMEMultipart()
-        msg["From"] = config["MAIL_FROM"]
-        msg["To"] = ", ".join(config["MAIL_TO"])
+        msg["From"] = mail_from
+        msg["To"] = ", ".join(mail_to)
         msg["Subject"] = "[jidlobot] " + subject
         msg.attach(html_part)
-        mail.sendmail(config["MAIL_FROM"], config["MAIL_TO"], msg.as_string())
+        mail.sendmail(mail_from, mail_to, msg.as_string())
 
         mail.quit()
     except Exception as e:
