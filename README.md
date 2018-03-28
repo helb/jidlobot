@@ -42,8 +42,12 @@ Copy `jidlobot.yml.exmaple` to `jidlobot.yml` and set:
 
 If using `mail` backend:
 
--   `MAIL_FROM`, `MAIL_PW`, `MAIL_SERVER`, `MAIL_PORT` – SMTP server credentials for sending e-mails
--   `MAIL_TO` – list of recipients
+-   `MAIL_FROM` – Sender e-mail address
+-   `MAIL_TO` – List of recipients
+-   `MAIL_SERVER` (default `localhost`) and `MAIL_PORT` (default `25`) – *MTA* (SMTP server) address
+-   `MAIL_USER` (default same as `MAIL_FROM`) and `MAIL_PW` – SMTP server credentials (not used if `MAIL_PW` is not set)
+-   `MAIL_STARTTLS` (default `True`) – Use *STARTTLS* connection method
+-   If your local *MTA* works well, set `MAIL_FROM` and `MAIL_TO` only
 
 If using `mattermost` backend:
 
