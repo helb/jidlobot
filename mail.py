@@ -12,12 +12,14 @@ def send_mail(body, subject, config):
     mail_to = config.get('MAIL_TO')
     mail_user = config.get('MAIL_USER', mail_from)
     mail_pw = config.get('MAIL_PW', None)
+    mail_starttls = config.get('MAIL_STARTTLS', True)
 
 
     try:
         mail = smtplib.SMTP(mail_server, mail_port)
         mail.ehlo()
-        mail.starttls()
+        if mail_starttls:
+            mail.starttls()
         if mail_pw:
             mail.login(mail_user, mail_pw)
 
