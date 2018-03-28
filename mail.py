@@ -6,14 +6,13 @@ from email.mime.text import MIMEText
 
 def send_mail(body, subject, config):
     # set default values
-    mail_server = config.get('MAIL_SERVER','localhost')
-    mail_port = config.get('MAIL_PORT',25)
+    mail_server = config.get('MAIL_SERVER', 'localhost')
+    mail_port = config.get('MAIL_PORT', 25)
     mail_from = config.get('MAIL_FROM')
     mail_to = config.get('MAIL_TO')
     mail_user = config.get('MAIL_USER', mail_from)
     mail_pw = config.get('MAIL_PW', None)
     mail_starttls = config.get('MAIL_STARTTLS', True)
-
 
     try:
         mail = smtplib.SMTP(mail_server, mail_port)
@@ -54,7 +53,8 @@ def send_mail(body, subject, config):
         }
         """
 
-        body_html = "<html><head><style type='text/css'>" + css + "</style></head>" + "<body>" + mistune.markdown(body) + "</body></html>"
+        body_html = "<html><head><style type='text/css'>" + css + \
+            "</style></head>" + "<body>" + mistune.markdown(body) + "</body></html>"
 
         html_part = MIMEText(body_html, "html")
 
