@@ -16,6 +16,7 @@ jidlobot_install_path: '/opt/jidlobot'
 jidlobot_requirements:
   - git
   - python3
+  - python3-dev
   - virtualenv
   - libyaml-dev
 
