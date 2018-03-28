@@ -10,14 +10,16 @@ def send_mail(body, subject, config):
     mail_port = config.get('MAIL_PORT',25)
     mail_from = config.get('MAIL_FROM')
     mail_to = config.get('MAIL_TO')
-    mail_pw = config.get('MAIL_PW')
+    mail_user = config.get('MAIL_USER', mail_from)
+    mail_pw = config.get('MAIL_PW', None)
 
 
     try:
         mail = smtplib.SMTP(mail_server, mail_port)
         mail.ehlo()
         mail.starttls()
-        mail.login(mail_from, mail_pw)
+        if mail_pw:
+            mail.login(mail_user, mail_pw)
 
         css = """
         body {
