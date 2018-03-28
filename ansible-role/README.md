@@ -40,3 +40,53 @@ If any of the parameters is not defined, it is omitted from module parameters.
 See
 [cron module documentation](https://docs.ansible.com/ansible/latest/cron_module.html#options)
 for details.
+
+
+## Examples
+
+Simple installation with `console` backend (for testing):
+
+```yaml
+jidlobot_admin_mail: 'admin@example.cz'
+jidlobot_backend:
+  console:
+
+jidlobot_urls:
+  - https://www.menicka.cz/...
+```
+
+Send daily menus in `Mattermost` message:
+
+```yaml
+jidlobot_admin_mail: 'admin@example.cz'
+jidlobot_backend:
+  mattermost:
+    channel: 'lunch'
+    username: 'jidlobot'
+    webhook: 'https://mattermost.example.cz/hooks/s3cr3tUR1'
+
+jidlobot_urls:
+  - https://www.menicka.cz/...
+```
+
+
+Send Wednesday menus on 11:30 to e-mail recipients:
+
+```yaml
+jidlobot_admin_mail: 'admin@example.cz'
+jidlobot_backend:
+  mail:
+    from: 'jidlobot@example.cz'
+    to:
+      - admin@example.cz
+      - hungry@hippo.org
+      - foo@bar.xyz
+
+jidlobot_cron:
+  hour: '11'
+  minute: '30'
+  weekday: '3'
+
+jidlobot_urls:
+  - https://www.menicka.cz/...
+```
