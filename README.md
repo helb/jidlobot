@@ -30,10 +30,12 @@ Install dependencies:
 $ pip install -r requirements.txt
 ```
 
-Copy `jidlobot.yml.exmaple` to `jidlobot.yml` and set:
+Copy `jidlobot.yml.example` to `jidlobot.yml` and set:
 
 -   `HTTP_TIMEOUT` to the number of seconds you would want to wait for each URL
--   `URLS` – list of urls at menicka.cz
+-   `URLS` – list of urls, supported sites are:
+    - `menicka.cz`
+    - `zomato.com` (they have some scraping protection in place, make sure to have `ZOMATO_UA` set in your config)
 -   `BACKENDS` – where to send the message:
     -   `mail`
     -   `mattermost`
