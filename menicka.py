@@ -9,7 +9,7 @@ def fetch(url, config):
     prices = []
 
     try:
-        result = requests.get(url, timeout=config["HTTP_TIMEOUT"], verify=False)
+        result = requests.get(url, timeout=config["HTTP_TIMEOUT"])
         html = BeautifulSoup(result.content, "html5lib")
         day = html.findAll("div", {"class": "menicka"})[0]
         restaurant = html.findAll("span", {"class": "org"})[0].text
