@@ -34,3 +34,7 @@ def fetch(url, config):
 
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
+
+    except IndexError:
+        # return empty string when there is no menu for today
+        return ""
