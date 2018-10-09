@@ -38,3 +38,6 @@ def fetch(url, config):
     except IndexError:
         # return empty string when there is no menu for today
         return ""
+
+    except Exception:
+        return "" + url + ": something went wrong :dizzy_face:\n"

@@ -35,3 +35,6 @@ def fetch(url, config):
 
     except socket.timeout:
         return "" + url + ": timeout :angry:\n"
+
+    except Exception:
+        return "" + url + ": something went wrong :dizzy_face:\n"
