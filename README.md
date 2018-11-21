@@ -40,6 +40,7 @@ Copy `jidlobot.yml.example` to `jidlobot.yml` and set:
     -   `mail`
     -   `mattermost`
     -   `hipchat`
+    -   `rocketchat`
     -   `console` (just prints the output).
 
 If using `mail` backend:
@@ -63,6 +64,11 @@ If using `hipchat` backend:
 -   `HIPCHAT_ROOM` – room ID
 -   `HIPCHAT_TOKEN` – room notification token
 -   `HIPCHAT_COLOR` – message background, valid values are  `yellow`, `green`, `red`, `purple`, `gray`, and `random`.
+
+If using `rocketchat` backend:
+
+-   `ROCKETCHAT_WEBHOOK` – URL for webhook, `https://rocketchat.…/hooks/…`
+-   `ROCKETCHAT_CHANNEL` – channel name
 
 More than one backend can be used at the same time, eg.:
 
