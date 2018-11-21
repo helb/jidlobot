@@ -27,6 +27,7 @@ The role currently support only *mattermost* module.
 | .mail             | no       |              | Definition of mail backend (parameters are `from`, `to`, `server`, `port`, `user`, `pw` and `starttls`) |
 | .mattermost       | no       |              | Definition of Mattermost backend (parameters are `webhook`, `channel` and `username`) |
 | .hipchat          | no       |              | Definition of Hipchat backend (parameters are `url`, `room`, `token` and `color`) |
+| .rocketchat       | no       |              | Definition of Rocket Chat backend (parameters are `webhook` and `channel`) |
 
 Default `jidlobot_cron` variable is set to:
 ```
