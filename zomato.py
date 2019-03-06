@@ -13,6 +13,7 @@ def fetch(url, config):
         url = re.sub(r"\?.*/?(daily-menu)?$", "/daily-menu", url)
         result = requests.get(url, timeout=config["HTTP_TIMEOUT"], headers={
             "User-Agent": config["ZOMATO_UA"],
+            "Accept-Language": config["ZOMATO_LANG"],
             "Referer": url
         })
         html = BeautifulSoup(result.content, "html5lib")

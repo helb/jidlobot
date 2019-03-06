@@ -1,3 +1,5 @@
+---
+
 HTTP_TIMEOUT: 5
 URLS:
     - https://www.menicka.cz/1631-u-malicke-brany.html
@@ -28,3 +30,6 @@ BACKENDS:
     - console
 
 ZOMATO_UA: 'Mozilla/5.0 (X11; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0'
+ZOMATO_LANG: 'cs,en'
+
+...
