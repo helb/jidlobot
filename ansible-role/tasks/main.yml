@@ -12,9 +12,8 @@
 
 - name: Install apt requirements
   apt:
-    name: '{{ item }}'
+    name: '{{ jidlobot_requirements }}'
     state: present
-  with_items: '{{ jidlobot_requirements }}'
 
 - name: Clone jidlobot repo
   git:
