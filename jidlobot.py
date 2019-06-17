@@ -6,7 +6,7 @@ from console import send_console
 from hipchat import send_hipchat
 
 with open("jidlobot.yml", "r") as conf_file:
-    config = yaml.load(conf_file)
+    config = yaml.safe_load(conf_file)
 
 menus = get_menus(config)
 title = get_title()
