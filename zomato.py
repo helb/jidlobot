@@ -10,9 +10,10 @@ def fetch(url, config):
     prices = []
 
     try:
-        url = re.sub(r"\?.*/?(daily-menu)?$", "/daily-menu", url)
+        url = re.sub(r"\?.*/?(daily-menu|denní-menu)?$", "/denní-menu", url)
         result = requests.get(url, timeout=config["HTTP_TIMEOUT"], headers={
             "User-Agent": config["ZOMATO_UA"],
+            "Accept-Language": config["ZOMATO_LANG"],
             "Referer": url
         })
         html = BeautifulSoup(result.content, "html5lib")
