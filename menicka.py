@@ -12,17 +12,13 @@ def fetch(url, config):
         result = requests.get(url, timeout=config["HTTP_TIMEOUT"])
         html = BeautifulSoup(result.content, "html5lib")
         day = html.findAll("div", {"class": "menicka"})[0]
-        restaurant = html.findAll("span", {"class": "org"})[0].text
+        restaurant = html.select(".profile .line1 h1")[0].text
 
-        for j in day.select("div[class='doplnujici_info']"):
-            names.append(" ".join(j.text.strip().split()))
-            prices.append(j.next_sibling.next_sibling.text.strip())
-
-        for j in day.select("div[class*='nabidka_']"):
-            for allergen in j.find_all("em"):
-                allergen.replaceWith("")
-            names.append(" ".join(j.text.strip().split()))
-            prices.append(j.next_sibling.next_sibling.text.strip())
+        for line in day.select("li"):
+            name = line.select(".polozka")
+            if len(name) > 0:
+                names.append(name[0].text)
+                prices.append(name[0].next_sibling.next_sibling.text)
 
         for i in range(len(names)):
             line = "- " + names[i] + " " + prices[i]
