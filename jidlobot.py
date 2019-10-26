@@ -4,6 +4,7 @@ from mattermost import send_mattermost
 from mail import send_mail
 from console import send_console
 from hipchat import send_hipchat
+from rocketchat import send_rocketchat
 
 with open("jidlobot.yml", "r") as conf_file:
     config = yaml.safe_load(conf_file)
@@ -17,5 +18,7 @@ if "mattermost" in config["BACKENDS"]:
     send_mattermost(menus, title, config)
 if "hipchat" in config["BACKENDS"]:
     send_hipchat(menus, title, config)
+if "rocketchat" in config["BACKENDS"]:
+    send_rocketchat(menus, title, config)
 if "mail" in config["BACKENDS"]:
     send_mail(menus, title, config)
