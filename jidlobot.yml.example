@@ -23,10 +23,14 @@ HIPCHAT_ROOM: 1
 HIPCHAT_TOKEN: …
 HIPCHAT_COLOR: random
 
+ROCKETCHAT_WEBHOOK: https://rocketchat/hooks/…
+ROCKETCHAT_CHANNEL: channel
+
 BACKENDS:
     - mattermost
     - mail
     - hipchat
+    - rocketchat
     - console
 
 ZOMATO_UA: 'Mozilla/5.0 (X11; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0'
