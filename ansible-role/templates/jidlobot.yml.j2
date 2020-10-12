@@ -25,6 +25,9 @@ BACKENDS:
 {% if jidlobot_backend.rocketchat is defined %}
   - rocketchat
 {% endif %}
+{% if jidlobot_backend.slack is defined %}
+  - slack
+{% endif %}
 
 {% if jidlobot_backend.mail is defined %}
 MAIL_FROM: {{ jidlobot_backend.mail.from }}
@@ -57,4 +60,8 @@ HIPCHAT_COLOR: {{ jidlobot_backend.hipchat.color|default('yellow') }}
 {% if jidlobot_backend.rocketchat is defined %}
 ROCKETCHAT_WEBHOOK: {{ jidlobot_backend.rocketchat.webhook }}
 ROCKETCHAT_CHANNEL: {{ jidlobot_backend.rocketchat.channel }}
+{% endif %}
+
+{% if jidlobot_backend.slack is defined %}
+SLACK_WEBHOOK: {{ jidlobot_backend.slack.webhook }}
 {% endif %}
