@@ -1,5 +1,5 @@
 beautifulsoup4==4.7.1
 html5lib==1.0.1
-PyYAML==5.1.1
+PyYAML==5.4
 requests==2.22.0
 mistune==0.8.4
